@@ -3,76 +3,172 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Futuristic Portfolio</title>
+    <title>Minimal B&W Portfolio</title>
 
-    <!-- [폰트 교체 위치]
-      Inter 대신 다른 폰트를 쓰고 싶으면 아래 Google Fonts 링크와
-      style.css의 body font-family를 같이 변경하세요.
-    -->
+    <!-- [폰트] 가독성 좋은 모던 산세리프: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- [배경 애니메이션 캔버스]
-      tsParticles가 이 캔버스를 채웁니다.
-    -->
+    <!-- [배경 파티클 캔버스] -->
     <canvas id="tsparticles"></canvas>
+
+    <!-- =========================
+         고정 헤더 (항상 상단 고정)
+         ========================= -->
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="#" class="logo">PORTFOLIO</a>
+        <nav class="nav">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#media">Media</a>
+          <a href="#asymmetry">Asymmetry</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
 
     <main>
       <!-- =========================
-           HERO 섹션 (첫 화면)
+           HERO
            ========================= -->
-      <section class="hero">
-        <div class="hero-inner">
+      <section class="hero section-pad">
+        <div class="container hero-inner">
           <h1 class="hero-title">미래를 디자인합니다</h1>
           <p class="hero-desc">
-            기술과 디자인의 경계를 넘나들며, 사용자 경험을 혁신하는 웹을 만듭니다.
+            블랙앤화이트 미니멀 감성 기반으로, 정제된 인터랙션과 높은 가독성을 갖춘 웹 경험을 제공합니다.
           </p>
-          <a href="#projects" class="hero-btn">프로젝트 보기</a>
+          <a href="#projects" class="btn">프로젝트 보기</a>
         </div>
       </section>
 
       <!-- =========================
-           PROJECTS 섹션
+           한 줄에 여러 요소 (멀티 컬럼)
            ========================= -->
-      <section id="projects" class="projects">
-        <div class="projects-header">
-          <h2>나의 프로젝트</h2>
-          <p>아래 카드 수/내용을 바꿔서 포트폴리오 구성을 자유롭게 확장하세요.</p>
+      <section id="about" class="section-pad">
+        <div class="container">
+          <h2 class="section-title reveal">핵심 역량</h2>
+
+          <!-- [한 줄 다중 요소] 4개 컬럼 -->
+          <div class="feature-grid">
+            <article class="card reveal">
+              <h3>UI System</h3>
+              <p>일관된 디자인 토큰과 컴포넌트 구조.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Performance</h3>
+              <p>가벼운 구조와 빠른 렌더링 중심 설계.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Accessibility</h3>
+              <p>가독성, 대비, 키보드 접근성 우선.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Motion</h3>
+              <p>과하지 않은 프리미엄 애니메이션.</p>
+            </article>
+          </div>
         </div>
+      </section>
 
-        <!-- [프로젝트 카드 그리드]
-          카드 개수 변경 방법:
-          - 카드 1개 추가: article.project-card 블록을 복붙
-          - 카드 1개 삭제: 해당 article.project-card 블록 제거
-        -->
-        <div class="project-grid">
-          <article class="project-card">
-            <span class="project-tag">Web App</span>
-            <h3>AI Dashboard</h3>
-            <p>실시간 데이터 시각화와 인터랙션 중심의 분석 플랫폼.</p>
-            <a href="#" class="card-link">자세히 보기 →</a>
-          </article>
+      <!-- =========================
+           프로젝트 카드 (테두리 유지)
+           ========================= -->
+      <section id="projects" class="section-pad">
+        <div class="container">
+          <h2 class="section-title reveal">나의 프로젝트</h2>
+          <div class="project-grid">
+            <article class="card reveal">
+              <h3>Dashboard Suite</h3>
+              <p>데이터 기반 의사결정 대시보드.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Brand Landing</h3>
+              <p>브랜드 중심 프론트엔드 아키텍처.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Interactive Story</h3>
+              <p>스크롤 기반 인터랙티브 내러티브.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-          <article class="project-card">
-            <span class="project-tag">Data Viz</span>
-            <h3>Insight Explorer</h3>
-            <p>복잡한 데이터 흐름을 직관적으로 파악할 수 있는 시각화 서비스.</p>
-            <a href="#" class="card-link">자세히 보기 →</a>
-          </article>
+      <!-- =========================
+           이미지/영상 삽입 섹션
+           ========================= -->
+      <section id="media" class="section-pad">
+        <div class="container">
+          <h2 class="section-title reveal">Media</h2>
 
-          <article class="project-card">
-            <span class="project-tag">Interactive</span>
-            <h3>Futuristic Landing</h3>
-            <p>GSAP 기반의 시네마틱 모션으로 구성한 하이엔드 랜딩 페이지.</p>
-            <a href="#" class="card-link">자세히 보기 →</a>
-          </article>
+          <div class="media-grid">
+            <!-- [이미지 삽입 예시]
+              src를 본인 이미지 경로로 교체
+            -->
+            <figure class="media-card reveal">
+              <img src="https://picsum.photos/1200/700?grayscale" alt="프로젝트 샘플 이미지" />
+              <figcaption>이미지 샘플</figcaption>
+            </figure>
+
+            <!-- [영상 삽입 예시]
+              YouTube embed URL을 원하는 영상으로 변경
+            -->
+            <div class="media-card reveal video-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="YouTube video player"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+           비대칭 구성 샘플
+           ========================= -->
+      <section id="asymmetry" class="section-pad">
+        <div class="container">
+          <h2 class="section-title reveal">비대칭 레이아웃 샘플</h2>
+
+          <!-- [비대칭 레이아웃]
+            큰 카드 + 작은 카드 2개
+          -->
+          <div class="asym-grid">
+            <article class="card large reveal">
+              <h3>Primary Highlight</h3>
+              <p>
+                좌측 대형 영역으로 핵심 프로젝트를 강조하고, 우측 보조 카드로 요약 정보를 배치하는
+                비대칭 구성 샘플입니다.
+              </p>
+            </article>
+            <article class="card reveal">
+              <h3>Secondary 01</h3>
+              <p>보조 영역 콘텐츠.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Secondary 02</h3>
+              <p>보조 영역 콘텐츠.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section-pad">
+        <div class="container">
+          <h2 class="section-title reveal">Contact</h2>
+          <div class="card reveal">
+            <p>Email: hello@yourdomain.com</p>
+          </div>
         </div>
       </section>
     </main>
