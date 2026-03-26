@@ -1,4 +1,55 @@
----
-layout: default
----
-<h1>placeholder test</h1>
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Futuristic Portfolio</title>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 배경 파티클 캔버스 -->
+    <canvas id="tsparticles"></canvas>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-inner">
+          <h1 class="hero-title">미래를 디자인합니다</h1>
+          <p class="hero-desc">
+            기술과 디자인의 경계를 넘나들며, 사용자 경험을 혁신하는 웹을 만듭니다.
+          </p>
+          <a href="#projects" class="hero-btn">프로젝트 보기</a>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="projects">
+        <div class="projects-inner">
+          <h2>나의 프로젝트</h2>
+          <p>
+            여기에 주요 프로젝트를 카드 형태로 추가해보세요.
+            (예: AI Dashboard, Data Visualization, Interactive Web App 등)
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <!-- tsParticles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
