@@ -1,11 +1,18 @@
+/* =========================
+   [전역 변수]
+   색상/간격/폰트 톤을 여기서 관리하면 전체 스타일이 일관됩니다.
+   ========================= */
 :root {
-  --bg: #0a0a1a;
-  --text: #e9ecff;
-  --muted: #a8b0d3;
-  --cyan: #59e3ff;
-  --violet: #8f7dff;
+  --bg: #0a0a1a; /* 메인 배경 */
+  --surface: rgba(12, 14, 35, 0.72); /* 카드/패널 배경 */
+  --text: #e9ecff; /* 기본 텍스트 */
+  --muted: #a8b0d3; /* 보조 텍스트 */
+  --cyan: #59e3ff; /* 포인트 컬러 1 */
+  --violet: #8f7dff; /* 포인트 컬러 2 */
+  --border: rgba(143, 125, 255, 0.25);
 }
 
+/* 기본 리셋 */
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +23,7 @@ html,
 body {
   width: 100%;
   min-height: 100%;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif; /* [폰트 변경 포인트] */
   background: var(--bg);
   color: var(--text);
   scroll-behavior: smooth;
@@ -27,33 +34,35 @@ body {
   position: relative;
 }
 
-/* 배경 파티클 캔버스 */
+/* tsParticles canvas */
 #tsparticles {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
 
-/* 컨텐츠는 캔버스 위로 */
 main {
   position: relative;
   z-index: 1;
 }
 
+/* =========================
+   HERO
+   ========================= */
 .hero {
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  place-items: center; /* [정렬 변경 포인트] 중앙 정렬 */
   padding: 2rem;
-  text-align: center;
+  text-align: center; /* [정렬 변경 포인트] 좌측정렬 원하면 left */
 }
 
 .hero-inner {
-  max-width: 860px;
+  max-width: 900px;
 }
 
 .hero-title {
-  font-size: clamp(2rem, 6vw, 4.4rem);
+  font-size: clamp(2rem, 6vw, 4.6rem);
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -67,14 +76,15 @@ main {
   margin-bottom: 2rem;
 }
 
+/* 버튼 */
 .hero-btn {
   display: inline-block;
-  padding: 0.85rem 1.6rem;
+  padding: 0.9rem 1.7rem;
   border-radius: 999px;
   text-decoration: none;
   color: #ecfcff;
   font-weight: 600;
-  border: 1px solid rgba(89, 227, 255, 0.5);
+  border: 1px solid rgba(89, 227, 255, 0.55);
   background: linear-gradient(
     135deg,
     rgba(89, 227, 255, 0.14),
@@ -86,38 +96,93 @@ main {
 
 .hero-btn:hover {
   transform: translateY(-2px);
-  border-color: rgba(89, 227, 255, 0.9);
+  border-color: rgba(89, 227, 255, 0.95);
   box-shadow:
     0 0 12px rgba(89, 227, 255, 0.35),
     0 0 26px rgba(143, 125, 255, 0.25);
 }
 
+/* =========================
+   PROJECTS
+   ========================= */
 .projects {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
   padding: 6rem 2rem;
+  width: min(1200px, 100%);
+  margin: 0 auto;
 }
 
-.projects-inner {
-  width: min(900px, 100%);
-  border: 1px solid rgba(143, 125, 255, 0.24);
-  border-radius: 20px;
-  padding: 2.2rem;
-  background: rgba(11, 12, 30, 0.55);
-  backdrop-filter: blur(4px);
+.projects-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
 
-  /* ScrollTrigger 대상 초기값 */
+.projects-header h2 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  margin-bottom: 0.6rem;
+}
+
+.projects-header p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* [프로젝트 배치 변경 포인트]
+   minmax(260px, 1fr) 값을 바꾸면 카드 폭 기준이 달라집니다.
+*/
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+/* ScrollTrigger 초기 상태 */
+.project-card {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(28px);
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.4rem;
+  background: var(--surface);
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.projects h2 {
-  font-size: clamp(1.5rem, 4vw, 2.4rem);
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(89, 227, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(89, 227, 255, 0.12);
+}
+
+.project-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: #cff7ff;
+  background: rgba(89, 227, 255, 0.16);
+  border: 1px solid rgba(89, 227, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.24rem 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.project-card h3 {
+  font-size: 1.16rem;
+  margin-bottom: 0.6rem;
+}
+
+.project-card p {
+  color: var(--muted);
+  line-height: 1.7;
   margin-bottom: 1rem;
 }
 
-.projects p {
-  color: var(--muted);
-  line-height: 1.8;
+.card-link {
+  color: #d8d1ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.card-link:hover {
+  color: var(--cyan);
 }
