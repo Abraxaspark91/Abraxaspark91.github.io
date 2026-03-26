@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Futuristic Portfolio</title>
 
-    <!-- Google Font: Inter -->
+    <!-- [폰트 교체 위치]
+      Inter 대신 다른 폰트를 쓰고 싶으면 아래 Google Fonts 링크와
+      style.css의 body font-family를 같이 변경하세요.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,11 +19,15 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- 배경 파티클 캔버스 -->
+    <!-- [배경 애니메이션 캔버스]
+      tsParticles가 이 캔버스를 채웁니다.
+    -->
     <canvas id="tsparticles"></canvas>
 
     <main>
-      <!-- Hero -->
+      <!-- =========================
+           HERO 섹션 (첫 화면)
+           ========================= -->
       <section class="hero">
         <div class="hero-inner">
           <h1 class="hero-title">미래를 디자인합니다</h1>
@@ -31,14 +38,41 @@
         </div>
       </section>
 
-      <!-- Projects -->
+      <!-- =========================
+           PROJECTS 섹션
+           ========================= -->
       <section id="projects" class="projects">
-        <div class="projects-inner">
+        <div class="projects-header">
           <h2>나의 프로젝트</h2>
-          <p>
-            여기에 주요 프로젝트를 카드 형태로 추가해보세요.
-            (예: AI Dashboard, Data Visualization, Interactive Web App 등)
-          </p>
+          <p>아래 카드 수/내용을 바꿔서 포트폴리오 구성을 자유롭게 확장하세요.</p>
+        </div>
+
+        <!-- [프로젝트 카드 그리드]
+          카드 개수 변경 방법:
+          - 카드 1개 추가: article.project-card 블록을 복붙
+          - 카드 1개 삭제: 해당 article.project-card 블록 제거
+        -->
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-tag">Web App</span>
+            <h3>AI Dashboard</h3>
+            <p>실시간 데이터 시각화와 인터랙션 중심의 분석 플랫폼.</p>
+            <a href="#" class="card-link">자세히 보기 →</a>
+          </article>
+
+          <article class="project-card">
+            <span class="project-tag">Data Viz</span>
+            <h3>Insight Explorer</h3>
+            <p>복잡한 데이터 흐름을 직관적으로 파악할 수 있는 시각화 서비스.</p>
+            <a href="#" class="card-link">자세히 보기 →</a>
+          </article>
+
+          <article class="project-card">
+            <span class="project-tag">Interactive</span>
+            <h3>Futuristic Landing</h3>
+            <p>GSAP 기반의 시네마틱 모션으로 구성한 하이엔드 랜딩 페이지.</p>
+            <a href="#" class="card-link">자세히 보기 →</a>
+          </article>
         </div>
       </section>
     </main>
