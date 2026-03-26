@@ -1,105 +1,240 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // GSAP 플러그인 등록
-  gsap.registerPlugin(ScrollTrigger);
+/* =========================
+   Black & White 미니멀 테마
+   ========================= */
+:root {
+  --bg: #0f0f10;
+  --panel: #151517;
+  --text: #f5f5f5;
+  --muted: #b8b8be;
+  --line: #2d2d33; /* 카드 테두리 색 */
+  --white: #ffffff;
+}
 
-  // =========================
-  // 1) 첫 화면(히어로) 애니메이션
-  // =========================
-  gsap.fromTo(
-    ".hero-title",
-    { y: 60, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1.5, // 요청하신 1.5초
-      ease: "power3.out",
-    }
-  );
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  gsap.fromTo(
-    [".hero-desc", ".hero-btn"],
-    { y: 30, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1.1,
-      delay: 0.3, // 타이틀 이후 0.3초 지연
-      ease: "power2.out",
-      stagger: 0.1, // desc -> button 순차 등장
-    }
-  );
+html,
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
 
-  // =========================
-  // 2) 프로젝트 카드 스크롤 페이드인
-  // =========================
-  gsap.utils.toArray(".project-card").forEach((card, index) => {
-    gsap.to(card, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      delay: index * 0.08, // 카드가 순차 등장
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: card,
-        start: "top 85%",
-        toggleActions: "play none none reverse",
-      },
-    });
-  });
+body {
+  position: relative;
+  overflow-x: hidden;
+}
 
-  // =========================
-  // 3) tsParticles 네트워크 배경
-  // =========================
-  tsParticles.load("tsparticles", {
-    fullScreen: { enable: false },
-    background: { color: "transparent" },
-    fpsLimit: 60,
-    particles: {
-      number: {
-        value: 90, // [점 개수 변경 포인트]
-        density: { enable: true, area: 900 },
-      },
-      color: {
-        value: ["#59e3ff", "#8f7dff"], // [점 색상 변경 포인트]
-      },
-      links: {
-        enable: true,
-        distance: 140, // [선 연결 거리 변경]
-        color: "#6ec7ff",
-        opacity: 0.35,
-        width: 1,
-      },
-      move: {
-        enable: true,
-        speed: 0.45, // [이동 속도 변경] 낮을수록 천천히
-        direction: "none",
-        outModes: { default: "out" },
-      },
-      size: { value: { min: 1, max: 3 } },
-      opacity: { value: 0.6 },
-    },
-    interactivity: {
-      events: {
-        onHover: {
-          enable: true,
-          // repulse: 마우스 근처에서 점이 튕겨 나감
-          // grab: 마우스 근처 점과 선으로 연결되는 느낌
-          mode: ["repulse", "grab"],
-        },
-        resize: { enable: true },
-      },
-      modes: {
-        repulse: {
-          distance: 120, // [회피 거리]
-          duration: 0.4,
-          factor: 120,
-        },
-        grab: {
-          distance: 160, // [커서-점 연결 거리]
-          links: { opacity: 0.65 },
-        },
-      },
-    },
-    detectRetina: true,
-  });
-});
+/* 배경 파티클 */
+#tsparticles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+main,
+.site-header {
+  position: relative;
+  z-index: 1;
+}
+
+/* 공통 컨테이너 */
+.container {
+  width: min(1120px, 92%);
+  margin: 0 auto;
+}
+
+.section-pad {
+  padding: 6rem 0;
+}
+
+/* =========================
+   상단 고정 메뉴
+   ========================= */
+.site-header {
+  position: fixed; /* 항상 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--line);
+  background: rgba(15, 15, 16, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.nav-wrap {
+  min-height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: #d5d5db;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.nav a:hover {
+  color: var(--white);
+}
+
+/* 헤더 고정 때문에 첫 섹션 여백 */
+.hero {
+  padding-top: 9rem;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 820px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+}
+.hero-desc {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid #4b4b52;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  border-color: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 제목 */
+.section-title {
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  margin-bottom: 1.4rem;
+}
+
+/* 카드 (테두리 살림) */
+.card {
+  border: 1px solid var(--line); /* ✅ 요청사항: 카드 테두리 유지 */
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 1.2rem;
+}
+.card h3 {
+  margin-bottom: 0.5rem;
+}
+.card p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* 멀티 컬럼 */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* 미디어 */
+.media-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1rem;
+}
+.media-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--panel);
+}
+.media-card img {
+  width: 100%;
+  display: block;
+}
+.media-card figcaption {
+  padding: 0.8rem 1rem;
+  color: var(--muted);
+}
+.video-wrap iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  display: block;
+}
+
+/* 비대칭 레이아웃 */
+.asym-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1rem;
+}
+.asym-grid .large {
+  grid-row: span 2; /* 큰 카드가 세로로 2칸 차지 */
+  min-height: 320px;
+}
+
+/* 스크롤 등장 기본 상태 */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* 반응형 */
+@media (max-width: 980px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .media-grid,
+  .asym-grid {
+    grid-template-columns: 1fr;
+  }
+  .asym-grid .large {
+    grid-row: auto;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .feature-grid,
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
