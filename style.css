@@ -35,10 +35,10 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
+  pointer-events: none; /* ✅ 메뉴/버튼 클릭 비활성화 문제 해결 핵심 */
 }
 
-main,
-.site-header {
+main {
   position: relative;
   z-index: 1;
 }
@@ -57,12 +57,13 @@ main,
    상단 고정 메뉴
    ========================= */
 .site-header {
-  position: fixed; /* 항상 고정 */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 99999; /* ✅ 항상 맨 앞 */
   border-bottom: 1px solid var(--line);
-  background: rgba(15, 15, 16, 0.75);
+  background: rgba(15, 15, 16, 0.82);
   backdrop-filter: blur(8px);
 }
 
@@ -203,10 +204,17 @@ main,
   min-height: 320px;
 }
 
+/* 섹션 이동 시 헤더 높이만큼 가려짐 방지*/
+section[id] {
+  scroll-margin-top: 84px;
+}
+
 /* 스크롤 등장 기본 상태 */
-.reveal {
+.reveal-text {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(24px) scale(0.985);
+  filter: blur(4px);
+  transform-origin: 50% 100%;
 }
 
 /* 반응형 */
