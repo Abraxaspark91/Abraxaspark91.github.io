@@ -46,6 +46,19 @@
   --line-height-section: 1.2;
   --weight-section: 700;
   --tracking-section: -0.015em;
+
+  /* interaction tokens */
+  --interactive-text: #e2e2ea;
+  --interactive-text-strong: #ffffff;
+  --interactive-border: #80808f;
+  --interactive-border-strong: #c3c3d3;
+  --interactive-surface: #1d1d23;
+  --focus-ring: #fafafa;
+  --focus-ring-shadow: rgba(0, 0, 0, 0.7);
+  --motion-lift-hover: -2px;
+  --motion-lift-active: -1px;
+  --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.28);
+  --shadow-active: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* reset */
@@ -128,8 +141,8 @@ main {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  color: #d7d7dd;
-  transition: all 0.2s ease;
+  color: var(--interactive-text);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
   text-decoration: none;
 }
 
@@ -140,9 +153,17 @@ main {
 }
 
 .social-link:hover {
-  color: #fff;
-  border-color: #6a6a74;
-  transform: translateY(-1px);
+  color: var(--interactive-text-strong);
+  border-color: var(--interactive-border);
+  background-color: var(--interactive-surface);
+  transform: translateY(var(--motion-lift-hover));
+  box-shadow: var(--shadow-hover);
+}
+
+.social-link:active {
+  border-color: var(--interactive-border-strong);
+  transform: translateY(var(--motion-lift-active));
+  box-shadow: var(--shadow-active);
 }
 
 .logo {
@@ -158,12 +179,18 @@ main {
 }
 
 .nav a {
-  color: #d5d5db;
+  color: var(--interactive-text);
   text-decoration: none;
   font-size: 0.95rem;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 .nav a:hover {
-  color: var(--white);
+  color: var(--interactive-text-strong);
+  transform: translateY(var(--motion-lift-hover));
+}
+.nav a:active {
+  color: var(--interactive-border-strong);
+  transform: translateY(var(--motion-lift-active));
 }
 
 /* 헤더 고정 때문에 첫 섹션 여백 */
@@ -191,17 +218,24 @@ main {
 
 .btn {
   display: inline-block;
-  border: 1px solid #4b4b52;
-  color: #fff;
+  border: 1px solid #5a5a65;
+  color: var(--interactive-text-strong);
   text-decoration: none;
   padding: 0.85rem 1.4rem;
   border-radius: 999px;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 .btn:hover {
+  border-color: var(--interactive-border-strong);
+  background-color: var(--interactive-surface);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(var(--motion-lift-hover));
+}
+
+.btn:active {
   border-color: #ffffff;
-  box-shadow: 0 0 18px rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-active);
+  transform: translateY(var(--motion-lift-active));
 }
 
 /* 제목 */
@@ -243,6 +277,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;              /* 내부 요소 간격 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .card-title {
@@ -339,10 +374,24 @@ main {
 
 /* 너무 과한 hover 효과 제거 (지저분함 감소) */
 .card:hover {
-  transform: translateY(-2px);
-  border-color: #3a3a43;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
-  transition: 0.25s ease;
+  transform: translateY(var(--motion-lift-hover));
+  border-color: var(--interactive-border);
+  box-shadow: var(--shadow-hover);
+}
+
+.card:active {
+  transform: translateY(var(--motion-lift-active));
+  border-color: var(--interactive-border-strong);
+  box-shadow: var(--shadow-active);
+}
+
+.card:focus-visible,
+.btn:focus-visible,
+.nav a:focus-visible,
+.social-link:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--focus-ring-shadow);
 }
 
 /* 미디어 */
@@ -451,5 +500,31 @@ section[id] {
     --tracking-body: 0;
     --tracking-meta: 0.012em;
     --tracking-section: -0.01em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto;
+  }
+
+  .card,
+  .btn,
+  .nav a,
+  .social-link {
+    transition-duration: 0.01ms;
+  }
+
+  .card:hover,
+  .card:active,
+  .btn:hover,
+  .btn:active,
+  .nav a:hover,
+  .nav a:active,
+  .social-link:hover,
+  .social-link:active {
+    transform: none;
+    box-shadow: none;
   }
 }
