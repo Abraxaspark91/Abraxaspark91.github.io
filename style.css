@@ -16,6 +16,36 @@
   --grid-gap: clamp(0.85rem, 2vw, 1.25rem);
   --grid-min: 16rem;
   --bp-md: 980px;
+
+  /* typography tokens */
+  --title-scale-section: 1.6; /* section-title = card-title * 1.6 */
+  --font-size-title-min: 1.05rem;
+  --font-size-title-fluid: 1.2vw;
+  --font-size-title-max: 1.35rem;
+  --line-height-title: 1.32;
+  --weight-title: 700;
+  --tracking-title: -0.01em;
+
+  --font-size-body-min: 0.95rem;
+  --font-size-body-fluid: 1.02vw;
+  --font-size-body-max: 1.12rem;
+  --line-height-body: 1.65;
+  --weight-body: 500;
+  --tracking-body: -0.002em;
+
+  --font-size-meta-min: 0.82rem;
+  --font-size-meta-fluid: 0.9vw;
+  --font-size-meta-max: 0.95rem;
+  --line-height-meta: 1.45;
+  --weight-meta: 500;
+  --tracking-meta: 0.01em;
+
+  --font-size-section-min: calc(var(--font-size-title-min) * var(--title-scale-section));
+  --font-size-section-fluid: calc(var(--font-size-title-fluid) * var(--title-scale-section));
+  --font-size-section-max: calc(var(--font-size-title-max) * var(--title-scale-section));
+  --line-height-section: 1.2;
+  --weight-section: 700;
+  --tracking-section: -0.015em;
 }
 
 /* reset */
@@ -176,7 +206,10 @@ main {
 
 /* 제목 */
 .section-title {
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-size: clamp(var(--font-size-section-min), var(--font-size-section-fluid), var(--font-size-section-max));
+  line-height: var(--line-height-section);
+  font-weight: var(--weight-section);
+  letter-spacing: var(--tracking-section);
   margin-bottom: 1.4rem;
 }
 
@@ -184,7 +217,7 @@ main {
 /* =========================
    [A] 텍스트 줄바꿈 안정화
    ========================= */
-.card h3,
+.card-title,
 .card p,
 .card li,
 .section-title {
@@ -213,18 +246,19 @@ main {
 }
 
 .card-title {
-  font-size: clamp(1.05rem, 1.2vw, 1.35rem);
-  line-height: 1.3;
-  font-weight: 700;
+  font-size: clamp(var(--font-size-title-min), var(--font-size-title-fluid), var(--font-size-title-max));
+  line-height: var(--line-height-title);
+  font-weight: var(--weight-title);
   color: #f1f1f4;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-title);
   margin: 0;
 }
 
 .card-body {
-  font-size: clamp(0.95rem, 1.02vw, 1.12rem);
-  line-height: 1.65;
-  font-weight: 500;
+  font-size: clamp(var(--font-size-body-min), var(--font-size-body-fluid), var(--font-size-body-max));
+  line-height: var(--line-height-body);
+  font-weight: var(--weight-body);
+  letter-spacing: var(--tracking-body);
   color: #b9b9c2;
   margin: 0;
 }
@@ -233,8 +267,10 @@ main {
   margin-top: auto; /* 카드 하단 정렬 */
   padding-top: 0.6rem;
   border-top: 1px dashed #2d2d33;
-  font-size: clamp(0.82rem, 0.9vw, 0.95rem);
-  line-height: 1.45;
+  font-size: clamp(var(--font-size-meta-min), var(--font-size-meta-fluid), var(--font-size-meta-max));
+  line-height: var(--line-height-meta);
+  font-weight: var(--weight-meta);
+  letter-spacing: var(--tracking-meta);
   color: #8f8f99;
 }
 
@@ -266,10 +302,6 @@ main {
 }
 
 .card h3 {
-  font-size: clamp(1.2rem, 1.8vw, 1.7rem);
-  line-height: 1.25;
-  font-weight: 700;
-  color: #f3f3f5;
   margin: 0;
 }
 
@@ -364,6 +396,15 @@ section[id] {
 
 /* 반응형 */
 @media (max-width: 980px) {
+  :root {
+    --line-height-title: 1.34;
+    --line-height-body: 1.68;
+    --line-height-meta: 1.5;
+    --line-height-section: 1.24;
+    --tracking-title: -0.008em;
+    --tracking-section: -0.012em;
+  }
+
   .nav-wrap {
     grid-template-columns: 1fr;
     gap: 0.6rem;
@@ -388,5 +429,27 @@ section[id] {
   .grid-featured .large {
     grid-row: auto;
     min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --font-size-title-min: 1.02rem;
+    --font-size-title-fluid: 1.8vw;
+    --font-size-title-max: 1.22rem;
+    --font-size-body-min: 0.94rem;
+    --font-size-body-fluid: 1.6vw;
+    --font-size-body-max: 1.02rem;
+    --font-size-meta-min: 0.8rem;
+    --font-size-meta-fluid: 1.4vw;
+    --font-size-meta-max: 0.9rem;
+    --line-height-title: 1.38;
+    --line-height-body: 1.72;
+    --line-height-meta: 1.54;
+    --line-height-section: 1.26;
+    --tracking-title: -0.006em;
+    --tracking-body: 0;
+    --tracking-meta: 0.012em;
+    --tracking-section: -0.01em;
   }
 }
