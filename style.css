@@ -382,7 +382,7 @@ main {
   margin: 0;
 }
 
-.role-list {
+.card-body-list {
   display: grid;
   gap: 0.35rem;
   margin-top: 0.1rem;
@@ -390,7 +390,7 @@ main {
   padding-left: 1.1rem;
 }
 
-.role-list .card-body {
+.card-body-list .card-body {
   margin: 0;
 }
 
