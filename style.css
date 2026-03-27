@@ -8,6 +8,14 @@
   --muted: #b8b8be;
   --line: #2d2d33; /* 카드 테두리 색 */
   --white: #ffffff;
+
+  /* layout tokens */
+  --content-max: 1120px;
+  --content-gutter: 4%;
+  --grid-columns: 12;
+  --grid-gap: clamp(0.85rem, 2vw, 1.25rem);
+  --grid-min: 16rem;
+  --bp-md: 980px;
 }
 
 /* reset */
@@ -45,7 +53,7 @@ main {
 
 /* 공통 컨테이너 */
 .container {
-  width: min(1120px, 92%);
+  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
   margin: 0 auto;
 }
 
@@ -257,16 +265,28 @@ main {
   padding: 5rem 0; /* 섹션 간 간격 통일 */
 }
 
-.project-grid,
-.feature-grid,
-.media-grid,
-.asym-grid {
+.grid {
+  --grid-min: 16rem;
+  display: grid;
+  gap: var(--grid-gap);
   align-items: stretch;
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min)), 1fr));
+}
+
+.grid-2 {
+  --grid-min: clamp(16rem, 42vw, 24rem);
+}
+
+.grid-3 {
+  --grid-min: clamp(14rem, 30vw, 19rem);
+}
+
+.grid-featured {
+  --grid-min: clamp(12rem, 22vw, 16rem);
 }
 
 /* 카드가 들쭉날쭉하면 높이 균형 */
-.project-grid .card {
+.grid-3 .card {
   min-height: 260px;
 }
 
@@ -278,24 +298,7 @@ main {
   transition: 0.25s ease;
 }
 
-/* 멀티 컬럼 */
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-}
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
 /* 미디어 */
-.media-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 1rem;
-}
 .media-card {
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -326,12 +329,7 @@ main {
 }
 
 /* 비대칭 레이아웃 */
-.asym-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 1rem;
-}
-.asym-grid .large {
+.grid-featured .large {
   grid-row: span 2; /* 큰 카드가 세로로 2칸 차지 */
   min-height: 320px;
 }
@@ -363,17 +361,16 @@ section[id] {
   .social-links {
     order: 3;
   }
-   .feature-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .container {
+    --content-gutter: 5%;
   }
-  .project-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  .grid {
+    --grid-min: min(100%, 18rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min)), 1fr));
   }
-  .media-grid,
-  .asym-grid {
-    grid-template-columns: 1fr;
-  }
-  .asym-grid .large {
+
+  .grid-featured .large {
     grid-row: auto;
     min-height: auto;
   }
