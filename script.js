@@ -1,4 +1,159 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const projects = [
+    {
+      title: "New ERP Implementation Project",
+      period: "2024-12 ~ 2025-08",
+      roles: ["Solution Architect", "Stabilization Support"],
+      results: "Architected 10+ programs for profitability system used for BEPS compliance",
+      industryClient: "Electronics · L Electronics",
+      tags: ["Electronics", "Module Lead"],
+    },
+    {
+      title: "GenAI Taskforce",
+      period: "2024-02 ~ 2024-11",
+      roles: ["SAP Domain Expert", "GenAI R&D", "GenAI Strategist"],
+      results: "KNIME expert | Open-source LLM ecosystem report | sLLM Fine-tuning",
+      industryClient: "Technology · P Consulting",
+      tags: ["Consulting", "Strategic"],
+    },
+    {
+      title: "New Management Accounting Project",
+      period: "2022-08 ~ 2023-10",
+      roles: [
+        "Process and Solution Architect",
+        "Stabilization Support",
+        "Chinese Region Counterpart",
+      ],
+      results: "Process optimization | 8+ program design for marketing events' P&L tracking systems",
+      industryClient: "FMCG · A Cosmetics",
+      tags: ["Consumer Goods", "Senior Consultant"],
+    },
+    {
+      title: "Financial Reporting Enhancement",
+      period: "2021-05 ~ 2022-08",
+      roles: [
+        "Process and Solution Architect",
+        "Global Communication Manager",
+        "Stabilization Support",
+      ],
+      results: "Architected 7+ programs for standardized intercompany transaction",
+      industryClient: "Chemical · L Chemical",
+      tags: ["Chemical", "Module Lead"],
+    },
+    {
+      title: "Next-gen ERP Implementation",
+      period: "2019-12 ~ 2021-05",
+      roles: [
+        "Solution Architect",
+        "Solution Implementation Consultant",
+        "Stabilization Support",
+      ],
+      results: "Global COGS tracking-based consolidated profitability system",
+      industryClient: "Energy · S Lubricants",
+      tags: ["Energy", "Implementation"],
+    },
+  ];
+
+  function createProjectHead(period) {
+    const head = document.createElement("header");
+    head.className = "project-head";
+
+    const periodBadge = document.createElement("p");
+    periodBadge.className = "period-badge";
+    periodBadge.setAttribute("aria-label", "FROM ~ TO");
+    periodBadge.textContent = period;
+
+    head.append(periodBadge);
+    return head;
+  }
+
+  function createProjectFacts({ roles, results, industryClient }) {
+    const facts = document.createElement("dl");
+    facts.className = "project-facts";
+
+    const roleRow = document.createElement("div");
+    roleRow.className = "fact-row";
+    roleRow.innerHTML = `
+      <dt>Role</dt>
+      <dd>
+        <ul class="card-body-list">
+          ${roles.map((role) => `<li class="card-body">${role}</li>`).join("")}
+        </ul>
+      </dd>
+    `;
+
+    const resultsRow = document.createElement("div");
+    resultsRow.className = "fact-row fact-row--results";
+    resultsRow.innerHTML = `
+      <dt>Results</dt>
+      <dd class="card-body">${results}</dd>
+    `;
+
+    const industryRow = document.createElement("div");
+    industryRow.className = "fact-row";
+    industryRow.innerHTML = `
+      <dt>Industry · Client</dt>
+      <dd class="card-body">${industryClient}</dd>
+    `;
+
+    facts.append(roleRow, resultsRow, industryRow);
+    return facts;
+  }
+
+  function createCardMeta(tags) {
+    const meta = document.createElement("div");
+    meta.className = "card-meta";
+
+    tags.forEach((tag, index) => {
+      const badge = document.createElement("span");
+      badge.className = `meta-badge ${index === 0 ? "industry" : "role-level"}`;
+      badge.textContent = tag;
+      meta.appendChild(badge);
+    });
+
+    return meta;
+  }
+
+  function createProjectCard(project) {
+    const card = document.createElement("article");
+    card.className = "card card--project reveal-card";
+
+    const title = document.createElement("h3");
+    title.className = "card__title card-title title";
+    title.textContent = project.title;
+
+    const stack = document.createElement("div");
+    stack.className = "card-stack";
+    stack.append(createProjectHead(project.period));
+    stack.append(
+      createProjectFacts({
+        roles: project.roles,
+        results: project.results,
+        industryClient: project.industryClient,
+      })
+    );
+
+    card.append(title, stack, createCardMeta(project.tags));
+    return card;
+  }
+
+  function renderProjects(projectList, container) {
+    if (!container) return;
+
+    container.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+
+    projectList.forEach((project) => {
+      fragment.appendChild(createProjectCard(project));
+    });
+
+    container.appendChild(fragment);
+  }
+
+  // PROJECTS 카드는 projects 배열만 수정하면 자동으로 반영됩니다.
+  const projectGrid = document.querySelector("#project-cards");
+  renderProjects(projects, projectGrid);
+
   gsap.registerPlugin(ScrollTrigger);
 
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
