@@ -68,9 +68,17 @@
   --focus-ring-shadow: rgba(0, 0, 0, 0.7);
   --motion-lift-hover: -2px;
   --motion-lift-active: -1px;
+  --motion-lift-header-link-hover: -1px;
+  --motion-lift-header-link-active: 0;
   --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.26);
   --shadow-active: 0 5px 10px rgba(0, 0, 0, 0.2);
   --card-shadow-hover: 0 14px 24px rgba(0, 0, 0, 0.3);
+
+  /* header tune tokens */
+  --header-nav-gap: clamp(0.72rem, 1.35vw, 0.9rem);
+  --header-nav-link-x: 0.12rem;
+  --header-motion-duration: 0.18s;
+  --header-active-underline: rgba(242, 242, 245, 0.62);
 }
 
 /* reset */
@@ -125,9 +133,9 @@ main {
   left: 0;
   width: 100%;
   z-index: 99999; /* ✅ 항상 맨 앞 */
-  border-bottom: 1px solid var(--line);
-  background: rgba(15, 15, 16, 0.82);
-  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(79, 79, 92, 0.42);
+  background: rgba(15, 15, 16, 0.76);
+  backdrop-filter: blur(6px);
 }
 
 /* 헤더 레이아웃: 메뉴 + 소셜 */
@@ -153,35 +161,35 @@ main {
 }
 
 .social-link {
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--line);
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(79, 79, 92, 0.45);
   border-radius: 999px;
   display: grid;
   place-items: center;
-  color: var(--interactive-text);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  color: rgba(226, 226, 234, 0.78);
+  transition: transform var(--header-motion-duration) ease, box-shadow var(--header-motion-duration) ease, border-color var(--header-motion-duration) ease, color var(--header-motion-duration) ease, background-color var(--header-motion-duration) ease;
   text-decoration: none;
 }
 
 .social-link svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   fill: currentColor;
 }
 
 .social-link:hover {
-  color: var(--interactive-text-strong);
-  border-color: var(--interactive-border);
-  background-color: var(--interactive-surface);
-  transform: translateY(var(--motion-lift-hover));
-  box-shadow: var(--shadow-hover);
+  color: rgba(242, 242, 245, 0.9);
+  border-color: rgba(128, 128, 143, 0.62);
+  background-color: rgba(29, 29, 35, 0.82);
+  transform: translateY(var(--motion-lift-header-link-hover));
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
 }
 
 .social-link:active {
-  border-color: var(--interactive-border-strong);
-  transform: translateY(var(--motion-lift-active));
-  box-shadow: var(--shadow-active);
+  border-color: rgba(195, 195, 211, 0.66);
+  transform: translateY(var(--motion-lift-header-link-active));
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
 }
 
 .logo {
@@ -205,7 +213,7 @@ main {
 
 .nav {
   display: flex;
-  gap: 1rem;
+  gap: var(--header-nav-gap);
   flex-wrap: nowrap;
   justify-content: center;
   white-space: nowrap;
@@ -218,15 +226,33 @@ main {
   color: var(--interactive-text);
   text-decoration: none;
   font-size: 0.95rem;
-  transition: transform 0.2s ease, color 0.2s ease;
+  padding: 0 var(--header-nav-link-x);
+  position: relative;
+  transition: transform var(--header-motion-duration) ease, color var(--header-motion-duration) ease, opacity var(--header-motion-duration) ease;
 }
 .nav a:hover {
   color: var(--interactive-text-strong);
-  transform: translateY(var(--motion-lift-hover));
+  transform: translateY(var(--motion-lift-header-link-hover));
 }
 .nav a:active {
-  color: var(--interactive-border-strong);
-  transform: translateY(var(--motion-lift-active));
+  color: var(--interactive-border);
+  transform: translateY(var(--motion-lift-header-link-active));
+}
+
+.nav a.active,
+.nav a[aria-current="page"] {
+  color: var(--interactive-text-strong);
+}
+
+.nav a.active::after,
+.nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: var(--header-nav-link-x);
+  right: var(--header-nav-link-x);
+  bottom: calc((var(--header-h) - 1em) / 2 - 0.44rem);
+  height: 1px;
+  background: var(--header-active-underline);
 }
 
 /* 헤더 고정 때문에 첫 섹션 여백 */
