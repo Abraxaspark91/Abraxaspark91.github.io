@@ -113,7 +113,7 @@ body::before {
   background-repeat: no-repeat;
   
   /* 💡 글씨가 배경에 묻혀서 잘 안 보인다면 아래 주석을 풀고 투명도를 낮춰보세요 */
-  /* opacity: 0.6; */
+  opacity: 0.6;
 }
 
 /* 배경 파티클 */
