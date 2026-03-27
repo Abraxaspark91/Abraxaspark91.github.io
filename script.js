@@ -156,7 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeId = null;
 
     sectionMap.forEach((section, id) => {
-      if (section.offsetTop <= probeY) activeId = id;
+      if (section.offsetTop <= probeY) {
+        activeId = id;
+      } else {
+        // probe 미도달 섹션: 뷰포트 상단부에 보이면 활성화
+        // (Education·Contact처럼 짧아서 probe가 닿지 않는 섹션 대응)
+        const rect = section.getBoundingClientRect();
+        if (rect.top >= headerH && rect.top < window.innerHeight * 0.65) {
+          activeId = id;
+        }
+      }
     });
 
     if (!activeId) {
@@ -207,14 +216,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const headerH = header ? header.offsetHeight : 0;
       const targetY = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
-      setActiveNav(id);
       isScrollingToTarget = true;
 
       if (isReducedMotion) {
         window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+        setActiveNav(id);
         isScrollingToTarget = false;
       } else {
         smoothScrollTo(targetY, () => {
+          setActiveNav(id);
           isScrollingToTarget = false;
         });
       }

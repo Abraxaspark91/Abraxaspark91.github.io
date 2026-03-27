@@ -669,54 +669,51 @@ main {
 .site-footer {
   position: relative;
   z-index: 1;
-  padding: 1.7rem 0 2.2rem;
+  padding: 2rem 0 2.5rem;
+  border-top: 1px solid rgba(85, 86, 102, 0.35);
 }
 
-.footer-strip {
+.footer-inner {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.9rem 1rem;
-  border: 1px solid rgba(85, 86, 102, 0.45);
-  border-radius: 999px;
-  background:
-    radial-gradient(120% 120% at 0% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 45%),
-    linear-gradient(135deg, rgba(30, 31, 38, 0.9), rgba(20, 20, 24, 0.85));
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
 }
 
-.footer-link,
-.footer-copy {
+.footer-label {
+  font-size: clamp(0.68rem, 0.85vw, 0.76rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.55;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-link {
   font-size: 0.84rem;
   color: var(--text-secondary);
   letter-spacing: 0.018em;
   text-transform: uppercase;
-}
-
-.footer-link {
   text-decoration: none;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 0.32rem 0.7rem;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .footer-link:hover {
   color: var(--text-primary);
-  border-color: rgba(125, 126, 141, 0.45);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.footer-divider {
-  width: 1px;
-  height: 0.7rem;
-  background: rgba(146, 147, 160, 0.45);
 }
 
 .footer-copy {
   margin-left: auto;
+  font-size: 0.82rem;
   color: #b5b6c6;
+  letter-spacing: 0.018em;
+  text-transform: uppercase;
 }
 
 /* 섹션 이동 시 헤더 높이만큼 가려짐 방지*/
@@ -798,6 +795,11 @@ section[id] {
     row-gap: 0.35rem;
   }
 
+  .nav a.active::after,
+  .nav a[aria-current="page"]::after {
+    bottom: -3px;
+  }
+
   .social-links {
     justify-self: center;
     height: auto;
@@ -806,18 +808,14 @@ section[id] {
     margin-top: 0.1rem;
   }
 
+  .footer-inner {
+    gap: 0.6rem 1.5rem;
+  }
+
   .footer-copy {
     margin-left: 0;
     width: 100%;
-    padding: 0.35rem 0.2rem 0;
-  }
-
-  .footer-divider:last-of-type {
-    display: none;
-  }
-
-  .footer-strip {
-    border-radius: 16px;
+    padding-top: 0.2rem;
   }
 }
 
