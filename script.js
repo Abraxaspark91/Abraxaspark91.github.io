@@ -113,6 +113,52 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   const navLinks = document.querySelectorAll("a[data-scroll]");
   const header = document.querySelector(".site-header");
+  const navLinkMap = new Map();
+  const sectionMap = new Map();
+
+  navLinks.forEach((link) => {
+    const id = link.getAttribute("href");
+    if (!id || !id.startsWith("#")) return;
+
+    const target = document.querySelector(id);
+    if (!target) return;
+
+    navLinkMap.set(id, link);
+    sectionMap.set(id, target);
+  });
+
+  function setActiveNav(id) {
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      link.removeAttribute("aria-current");
+    });
+
+    const activeLink = navLinkMap.get(id);
+    if (!activeLink) return;
+
+    activeLink.classList.add("active");
+    activeLink.setAttribute("aria-current", "page");
+  }
+
+  function updateActiveNavByScroll() {
+    if (!sectionMap.size) return;
+
+    const headerH = header ? header.offsetHeight : 0;
+    const probeY = window.scrollY + headerH + 24;
+    let activeId = null;
+
+    sectionMap.forEach((section, id) => {
+      if (section.offsetTop <= probeY) activeId = id;
+    });
+
+    if (!activeId) {
+      const firstId = sectionMap.keys().next().value;
+      if (firstId) setActiveNav(firstId);
+      return;
+    }
+
+    setActiveNav(activeId);
+  }
 
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -149,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const headerH = header ? header.offsetHeight : 0;
       const targetY = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
+      setActiveNav(id);
 
       if (isReducedMotion) {
         window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
@@ -158,6 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
       smoothScrollTo(targetY);
     });
   });
+
+  updateActiveNavByScroll();
+  window.addEventListener("scroll", updateActiveNavByScroll, { passive: true });
+  window.addEventListener("resize", updateActiveNavByScroll);
 
   // =========================
   // [4] tsParticles (기존 유지)
