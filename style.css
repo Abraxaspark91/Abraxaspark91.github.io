@@ -665,7 +665,7 @@ main {
   background: rgba(255, 255, 255, 0.02);
 }
 
-#asymmetry {
+#education {
   border-bottom: 1px solid rgba(79, 79, 92, 0.5);
   padding-bottom: 4rem;
 }
@@ -694,7 +694,7 @@ main {
   min-height: auto;
 }
 
-#asymmetry .grid-featured .large {
+#education .grid-featured .large {
   grid-row: auto;
   min-height: var(--card-min-height);
 }
@@ -926,7 +926,7 @@ section[id] {
     min-height: 320px;
   }
 
-  #asymmetry .grid-featured .large {
+  #education .grid-featured .large {
     grid-row: auto;
     min-height: var(--card-min-height);
   }
