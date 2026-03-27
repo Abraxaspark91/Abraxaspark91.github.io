@@ -74,6 +74,10 @@
   --shadow-active: 0 5px 10px rgba(0, 0, 0, 0.2);
   --card-shadow-hover: 0 14px 24px rgba(0, 0, 0, 0.3);
 
+  /* hero bg / section veil */
+  --hero-bg-opacity: 0.7;
+  --section-veil: 0.52;
+
   /* header tune tokens */
   --header-nav-gap: clamp(0.72rem, 1.35vw, 0.9rem);
   --header-nav-link-x: 0.12rem;
@@ -113,7 +117,8 @@ body::before {
   background-repeat: no-repeat;
   
   /* 💡 글씨가 배경에 묻혀서 잘 안 보인다면 아래 주석을 풀고 투명도를 낮춰보세요 */
-  opacity: 0.6;
+  opacity: var(--hero-bg-opacity);
+  transition: opacity 320ms ease;
 }
 
 /* 배경 파티클 */
@@ -127,6 +132,47 @@ body::before {
 main {
   position: relative;
   z-index: 1;
+}
+
+
+body.is-hero-active {
+  --hero-bg-opacity: 1;
+}
+
+main > section {
+  position: relative;
+  isolation: isolate;
+}
+
+main > section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+main > section:not(.hero)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 10, var(--section-veil));
+  pointer-events: none;
+  z-index: 0;
+  transition: background-color 320ms ease;
+}
+
+#about {
+  --section-veil: 0.38;
+}
+
+#projects {
+  --section-veil: 0.48;
+}
+
+#media {
+  --section-veil: 0.44;
+}
+
+#education {
+  --section-veil: 0.56;
 }
 
 /* 공통 컨테이너 */
@@ -677,9 +723,6 @@ main {
   color: var(--text-secondary);
 }
 
-#projects {
-  background: rgba(255, 255, 255, 0.02);
-}
 
 #education {
   border-bottom: 1px solid rgba(79, 79, 92, 0.5);

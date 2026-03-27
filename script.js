@@ -154,6 +154,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectGrid = document.querySelector("#project-cards");
   renderProjects(projects, projectGrid);
 
+  // Hero 가시성에 따라 고정 배경 선명도/섹션 베일 강도를 전환합니다.
+  const heroSection = document.querySelector(".hero");
+  if (heroSection) {
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        const heroIsActive = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+        document.body.classList.toggle("is-hero-active", heroIsActive);
+      },
+      { threshold: [0, 0.45, 0.75] }
+    );
+
+    heroObserver.observe(heroSection);
+  }
+
   const root = document.documentElement;
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const isReducedMotion = reduceMotionQuery.matches;
