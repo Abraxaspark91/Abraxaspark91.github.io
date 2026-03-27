@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   gsap.fromTo(
     ".hero-title",
-    { y: 56, opacity: 0, filter: "blur(8px)" },
+    { y: 56, opacity: 0, filter: "blur(0px)" },
     {
       y: 0,
       opacity: 1,
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   gsap.fromTo(
     [".hero-desc", ".btn"],
-    { y: 22, opacity: 0, filter: "blur(6px)" },
+    { y: 22, opacity: 0, filter: "blur(0px)" },
     {
       y: 0,
       opacity: 1,
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: "blur(0px)",
       duration: 0.9, // [튜닝] 섹션 등장 속도
       delay: (i % 3) * 0.04,
       ease: "power2.out",
