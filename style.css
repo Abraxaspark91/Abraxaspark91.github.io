@@ -725,8 +725,8 @@ main > section:not(.hero)::before {
 }
 
 .project-grid .card.is-dimmed {
-  opacity: 0.3;
-  filter: blur(10px) saturate(0.6);
+  opacity: 0.3 !important;
+  filter: blur(10px) saturate(0.6) !important;
 }
 
 .grid-featured {

@@ -300,10 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
           start: "top 90%",
           toggleActions: "play none none reverse",
         },
-        onComplete() {
-          el.style.opacity = "";
-          el.style.filter = "";
-        },
       });
     });
 
