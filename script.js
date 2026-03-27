@@ -154,25 +154,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectGrid = document.querySelector("#project-cards");
   renderProjects(projects, projectGrid);
 
-  gsap.registerPlugin(ScrollTrigger);
-
+  const root = document.documentElement;
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const isReducedMotion = reduceMotionQuery.matches;
 
-  const revealSelectors = [".reveal-section", ".reveal-card", ".reveal-text"];
+  const hasGsap = typeof window.gsap !== "undefined";
+  const hasScrollTrigger = typeof window.ScrollTrigger !== "undefined";
+  const canAnimate = !isReducedMotion && hasGsap && hasScrollTrigger;
 
-  // =========================
-  // [1] 첫 화면 로드 애니메이션
-  // =========================
-  if (isReducedMotion) {
-    gsap.set([".hero-title", ".hero-desc", ".btn"], {
-      clearProps: "all",
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      filter: "none",
-    });
-  } else {
+  if (canAnimate) {
+    root.classList.add("js-ready", "is-animated");
+    gsap.registerPlugin(ScrollTrigger);
+
+    // =========================
+    // [1] 첫 화면 로드 애니메이션
+    // =========================
     gsap.fromTo(
       ".hero-title",
       { y: 56, opacity: 0, filter: "blur(8px)" },
@@ -198,20 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
         stagger: 0.1,
       }
     );
-  }
 
-  // =========================
-  // [2] 스크롤 도달 시 목적별 애니메이션
-  // =========================
-  if (isReducedMotion) {
-    gsap.set(revealSelectors.join(", "), {
-      clearProps: "all",
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      filter: "none",
-    });
-  } else {
+    // =========================
+    // [2] 스크롤 도달 시 목적별 애니메이션
+    // =========================
     gsap.utils.toArray(".reveal-section").forEach((el, i) => {
       gsap.to(el, {
         opacity: 1,
@@ -260,6 +246,12 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
     });
+  } else {
+    root.classList.remove("js-ready", "is-animated");
+
+    if (!isReducedMotion && (!hasGsap || !hasScrollTrigger)) {
+      console.warn("[animation] GSAP/ScrollTrigger unavailable. Keeping reveal content accessible.");
+    }
   }
 
   // =========================

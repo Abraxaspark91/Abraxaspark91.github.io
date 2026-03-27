@@ -754,21 +754,30 @@ section[id] {
   scroll-margin-top: 84px;
 }
 
-/* 스크롤 등장 기본 상태 (목적별 분리) */
-.reveal-section {
+/* 스크롤 등장 기본 상태 (progressive enhancement) */
+.reveal-section,
+.reveal-card,
+.reveal-text {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* JS + GSAP 초기화 성공 시에만 초기 숨김 상태 적용 */
+html.is-animated .reveal-section {
   opacity: 0;
   transform: translateY(22px) scale(0.99);
   filter: blur(4px);
   transform-origin: 50% 100%;
 }
 
-.reveal-card {
+html.is-animated .reveal-card {
   opacity: 0;
   transform: translateY(18px);
   filter: blur(1px);
 }
 
-.reveal-text {
+html.is-animated .reveal-text {
   opacity: 0;
   transform: translateY(10px);
   filter: blur(2px);
@@ -971,7 +980,10 @@ section[id] {
 
   .reveal-section,
   .reveal-card,
-  .reveal-text {
+  .reveal-text,
+  html.is-animated .reveal-section,
+  html.is-animated .reveal-card,
+  html.is-animated .reveal-text {
     opacity: 1;
     transform: none;
     filter: none;
