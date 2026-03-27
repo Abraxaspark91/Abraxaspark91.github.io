@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       gsap.to(el, {
         opacity: 1,
         y: 0,
+        filter: "blur(0px)",
         duration: 0.75,
         delay: (i % 4) * 0.06,
         ease: "power2.out",
