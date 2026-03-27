@@ -265,11 +265,15 @@ main {
   margin-bottom: 1.4rem;
 }
 
-/* 카드 (테두리 살림) */
+/* 카드 아키텍처
+   - primitive: .card
+   - variants: .card--project | .card--profile | .card--education
+   - slots: .card__title | .card__body | .card__meta | .card__actions
+*/
 /* =========================
    [A] 텍스트 줄바꿈 안정화
    ========================= */
-.card-title,
+.card__title,
 .card p,
 .card li,
 .section-title {
@@ -284,21 +288,46 @@ main {
 }
 
 /* =========================
-   [B] 카드 시각 계층 분리
+   [B] 카드 primitive + variant 규칙
    ========================= */
 .card {
+  --card-padding: 1rem;
+  --card-min-height: 0;
+  --card-meta-separator: none;
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   background: var(--surface-1);
-  padding: 1.2rem 1.25rem;
-  min-height: 220px;         /* 너무 큰 고정 높이 사용 중이면 제거/축소 */
+  padding: var(--card-padding);
+  min-height: var(--card-min-height);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;              /* 내부 요소 간격 */
+  gap: 0.75rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.card-title {
+/* Variant rules
+   - project: dense facts + 하단 메타 고정
+   - profile: compact highlight 카드
+   - education: 강조 카드 + 하단 메타 고정
+*/
+.card--project {
+  --card-padding: 1.2rem 1.25rem;
+  --card-min-height: 260px;
+  --card-meta-separator: 1px dashed var(--border-subtle);
+}
+
+.card--profile {
+  --card-padding: 1.1rem 1.2rem;
+  --card-min-height: 220px;
+}
+
+.card--education {
+  --card-padding: 1.2rem 1.25rem;
+  --card-min-height: 220px;
+  --card-meta-separator: 1px dashed var(--border-subtle);
+}
+
+.card__title {
   font-size: clamp(var(--font-size-title-min), var(--font-size-title-fluid), var(--font-size-title-max));
   line-height: var(--line-height-title);
   font-weight: var(--weight-title);
@@ -307,6 +336,7 @@ main {
   margin: 0;
 }
 
+.card__body,
 .card-body {
   font-size: clamp(var(--font-size-body-min), var(--font-size-body-fluid), var(--font-size-body-max));
   line-height: var(--line-height-body);
@@ -316,10 +346,11 @@ main {
   margin: 0;
 }
 
+.card__meta,
 .card-meta {
   margin-top: auto; /* 카드 하단 정렬 */
   padding-top: 0.75rem;
-  border-top: 1px dashed var(--border-subtle);
+  border-top: var(--card-meta-separator);
   font-size: clamp(var(--font-size-meta-min), var(--font-size-meta-fluid), var(--font-size-meta-max));
   line-height: var(--line-height-meta);
   font-weight: var(--weight-meta);
@@ -330,15 +361,22 @@ main {
   gap: 0.45rem;
 }
 
-/* 카드 안 여러 줄 텍스트 간격 통일 */
-.card-stack {
+/* 카드 body 슬롯 */
+.card__body {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   height: 100%;
 }
 
-.card-stack .title {
+.card__actions {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.card__title.title {
   margin: 0;
 }
 
@@ -415,7 +453,8 @@ main {
   color: #dcc8ff;
 }
 
-.card-stack .meta {
+.card--project .card__meta,
+.card--education .card__meta {
   margin-top: auto;
 }
 
@@ -449,11 +488,6 @@ main {
 
 .grid-featured {
   --grid-min: clamp(12rem, 22vw, 16rem);
-}
-
-/* 카드가 들쭉날쭉하면 높이 균형 */
-.grid-3 .card {
-  min-height: 260px;
 }
 
 /* 너무 과한 hover 효과 제거 (지저분함 감소) */
