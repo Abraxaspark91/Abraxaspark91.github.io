@@ -670,8 +670,61 @@ main > section:not(.hero)::before {
   --project-card-min: clamp(15.5rem, 92vw, 19rem);
 }
 
+.project-carousel {
+  --visible-count: 3;
+  --carousel-gap: var(--grid-gap);
+  --card-basis: calc((100% - (var(--carousel-gap) * (var(--visible-count) - 1))) / var(--visible-count));
+}
+
+.project-carousel__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin-bottom: 0.95rem;
+}
+
+.carousel-btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.project-carousel__viewport {
+  overflow: hidden;
+}
+
 .project-grid {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  gap: var(--carousel-gap);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.project-grid .card {
+  flex: 0 0 var(--card-basis);
+  min-width: 0;
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+}
+
+.project-grid .card.is-dimmed {
+  opacity: 0.32;
+  filter: saturate(0.78);
+  transform: scale(0.97);
 }
 
 .grid-featured {
@@ -754,6 +807,18 @@ main > section:not(.hero)::before {
 #education .grid-featured .large {
   grid-row: auto;
   min-height: var(--card-min-height);
+}
+
+@media (max-width: 1023px) {
+  .project-carousel {
+    --visible-count: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .project-carousel {
+    --visible-count: 1;
+  }
 }
 
 .site-footer {
