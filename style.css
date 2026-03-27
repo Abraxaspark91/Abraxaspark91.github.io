@@ -257,6 +257,8 @@ main {
 
 /* 헤더 고정 때문에 첫 섹션 여백 */
 .hero {
+  position: relative;
+  overflow: hidden;
   padding-top: 9rem;
   min-height: 100vh;
   display: grid;
