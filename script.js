@@ -124,8 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = document.querySelector(id);
     if (!target) return;
 
-    navLinkMap.set(id, link);
-    sectionMap.set(id, target);
+    if (link.closest(".nav") && !navLinkMap.has(id)) {
+      navLinkMap.set(id, link);
+    }
+    if (!sectionMap.has(id)) {
+      sectionMap.set(id, target);
+    }
   });
 
   function setActiveNav(id) {
@@ -141,7 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
     activeLink.setAttribute("aria-current", "page");
   }
 
+  let isScrollingToTarget = false;
+
   function updateActiveNavByScroll() {
+    if (isScrollingToTarget) return;
     if (!sectionMap.size) return;
 
     const headerH = header ? header.offsetHeight : 0;
@@ -165,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  function smoothScrollTo(targetY) {
+  function smoothScrollTo(targetY, onComplete) {
     const startY = window.scrollY;
     const distance = Math.abs(targetY - startY);
     const duration = Math.min(900, Math.max(320, 220 + Math.log2(distance + 1) * 110));
@@ -180,7 +187,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       window.scrollTo(0, startY + (targetY - startY) * eased);
 
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        if (onComplete) onComplete();
+      }
     }
 
     requestAnimationFrame(step);
@@ -197,11 +208,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const headerH = header ? header.offsetHeight : 0;
       const targetY = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
       setActiveNav(id);
+      isScrollingToTarget = true;
 
       if (isReducedMotion) {
         window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+        isScrollingToTarget = false;
       } else {
-        smoothScrollTo(targetY);
+        smoothScrollTo(targetY, () => {
+          isScrollingToTarget = false;
+        });
       }
 
       history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
