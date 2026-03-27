@@ -29,8 +29,8 @@
           <nav class="nav">
             <a href="#about" data-scroll>ABOUT</a>
             <a href="#projects" data-scroll>PROJECTS</a>
-            <a href="#media" data-scroll>O.O.O</a>
             <a href="#education" data-scroll>EDUCATION</a>
+            <a href="#media" data-scroll>O.O.O</a>
             <a href="#contact" data-scroll>CONTACT</a>
           </nav>
         </div>
@@ -89,7 +89,7 @@
         <div class="container">
           <div class="section-header reveal-section">
             <h2 class="section-title">ABOUT</h2>
-            <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p>
+            <!-- <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p> -->
           </div>
 
           <!-- [한 줄 다중 요소] 4개 컬럼 -->
@@ -143,61 +143,22 @@
         <div class="container">
           <div class="section-header reveal-section">
             <h2 class="section-title">PROJECTS</h2>
-            <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p>
+            <!-- <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p> -->
           </div>
           <div id="project-cards" class="grid grid-3 project-grid" aria-live="polite"></div>
         </div>
       </section>
-
+      
       <!-- =========================
-           이미지/영상 삽입 섹션
-           ========================= -->
-      <section id="media" class="section-pad">
-        <div class="container">
-          <div class="section-header reveal-section">
-            <h2 class="section-title">OUT OF OFFICE</h2>
-            <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p>
-          </div>
-
-          <div class="grid grid-2">
-            <!-- [이미지 삽입 예시]
-              src를 본인 이미지 경로로 교체
-            -->
-            <figure class="media-card reveal-card">
-              <img src="./cartoon.jpg" alt="Sample" />
-              <figcaption class="media-caption">I Create Cartoons</figcaption>
-            </figure>
-
-            <!-- [영상 삽입 예시]
-              YouTube embed URL을 원하는 영상으로 변경
-            -->
-            <div class="media-card reveal-card video-wrap">
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/XcDuGZKJWDM"
-                title="OUT OF OFFICE pt.2"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-              <p class="media-caption">And Play Guitar!</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================
-           비대칭 구성 샘플
+           교육
            ========================= -->
       <section id="education" class="section-pad">
         <div class="container">
           <div class="section-header reveal-section">
             <h2 class="section-title">EDUCATION</h2>
-            <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p>
+            <!-- <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p> -->
           </div>
-
-          <!-- [비대칭 레이아웃]
-            큰 카드 + 작은 카드 2개
-          -->
+          
           <div class="grid grid-featured grid-edu">
             <article class="card card--edu reveal-card">
               <h3 class="card__title card-title title">Current Education</h3>
@@ -231,6 +192,42 @@
           </div>
         </div>
       </section>
+      
+      <!-- =========================
+           이미지/영상 삽입 섹션
+           ========================= -->
+      <section id="media" class="section-pad">
+        <div class="container">
+          <div class="section-header reveal-section">
+            <h2 class="section-title">OUT OF OFFICE</h2>
+            <!-- <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p> -->
+          </div>
+
+          <div class="grid grid-2">
+            <!-- [이미지 삽입 예시]
+              src를 본인 이미지 경로로 교체
+            -->
+            <figure class="media-card reveal-card">
+              <img src="./cartoon.jpg" alt="Sample" />
+              <figcaption class="media-caption"></figcaption>
+            </figure>
+
+            <!-- [영상 삽입 예시]
+              YouTube embed URL을 원하는 영상으로 변경
+            -->
+            <div class="media-card reveal-card video-wrap">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/XcDuGZKJWDM"
+                title="OUT OF OFFICE pt.2"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+              <p class="media-caption"></p>
+            </div>
+          </div>
+        </div>
+      </section>      
 
     </main>
 
