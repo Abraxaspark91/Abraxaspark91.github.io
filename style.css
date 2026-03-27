@@ -266,13 +266,35 @@ main {
   transform: translateY(var(--motion-lift-active));
 }
 
-/* 제목 */
+/* 섹션 헤더 공통 구조 */
+.section-header {
+  display: grid;
+  align-content: start;
+  row-gap: 0.45rem;
+  min-height: 5rem;
+  margin: 0 0 1.4rem;
+  padding: 0;
+}
+
 .section-title {
   font-size: clamp(var(--font-size-section-min), var(--font-size-section-fluid), var(--font-size-section-max));
   line-height: var(--line-height-section);
   font-weight: var(--weight-section);
   letter-spacing: var(--tracking-section);
-  margin-bottom: 1.4rem;
+  margin: 0;
+}
+
+.section-note {
+  margin: 0;
+  padding: 0;
+  min-height: 1.25rem;
+  line-height: 1.25rem;
+  color: var(--text-secondary);
+  font-size: clamp(0.82rem, 1.5vw, 0.92rem);
+}
+
+.section-note--placeholder {
+  visibility: hidden;
 }
 
 /* 카드 아키텍처
