@@ -277,8 +277,8 @@ main {
 
 /* 카드 아키텍처
    - primitive: .card
-   - variants: .card--project | .card--profile | .card--education
-   - slots: .card__title | .card__body | .card__meta | .card__actions
+   - variants: .card--about | .card--project | .card--edu
+   - slots: .card__title | .card-stack | .card-meta
 */
 /* =========================
    [A] 텍스트 줄바꿈 안정화
@@ -315,26 +315,17 @@ main {
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* Variant rules
-   - project: dense facts + 하단 메타 고정
-   - profile: compact highlight 카드
-   - education: 강조 카드 + 하단 메타 고정
-*/
+/* Variant rules: 최소 높이만 제어 */
+.card--about {
+  --card-min-height: 220px;
+}
+
 .card--project {
-  --card-padding: 1.2rem 1.25rem;
   --card-min-height: 260px;
-  --card-meta-separator: 1px dashed var(--border-subtle);
 }
 
-.card--profile {
-  --card-padding: 1.1rem 1.2rem;
+.card--edu {
   --card-min-height: 220px;
-}
-
-.card--education {
-  --card-padding: 1.2rem 1.25rem;
-  --card-min-height: 220px;
-  --card-meta-separator: 1px dashed var(--border-subtle);
 }
 
 .card__title {
@@ -356,11 +347,11 @@ main {
   margin: 0;
 }
 
-.card__meta,
-.card-meta {
+.card-meta,
+.card__meta {
   margin-top: auto; /* 카드 하단 정렬 */
   padding-top: 0.75rem;
-  border-top: var(--card-meta-separator);
+  border-top: 1px dashed var(--border-subtle);
   font-size: clamp(var(--font-size-meta-min), var(--font-size-meta-fluid), var(--font-size-meta-max));
   line-height: var(--line-height-meta);
   font-weight: var(--weight-meta);
@@ -371,12 +362,13 @@ main {
   gap: 0.45rem;
 }
 
-/* 카드 body 슬롯 */
+/* 카드 content 슬롯 */
+.card-stack,
 .card__body {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  height: 100%;
+  flex: 1;
 }
 
 .card__actions {
@@ -463,8 +455,8 @@ main {
   color: #dcc8ff;
 }
 
-.card--project .card__meta,
-.card--education .card__meta {
+.card--project .card-meta,
+.card--edu .card-meta {
   margin-top: auto;
 }
 
