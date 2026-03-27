@@ -1,76 +1,114 @@
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
+  const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const isReducedMotion = reduceMotionQuery.matches;
+
+  const revealSelectors = [".reveal-section", ".reveal-card", ".reveal-text"];
+
   // =========================
   // [1] 첫 화면 로드 애니메이션
   // =========================
-  gsap.fromTo(
-    ".hero-title",
-    { y: 56, opacity: 0, filter: "blur(8px)" },
-    {
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      duration: 1.5, // [튜닝] 첫 인상 속도
-      ease: "power3.out",
-    }
-  );
-
-  gsap.fromTo(
-    [".hero-desc", ".btn"],
-    { y: 22, opacity: 0, filter: "blur(6px)" },
-    {
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      duration: 1.1, // [튜닝] 설명/버튼 나타나는 시간
-      delay: 0.3,
-      ease: "power2.out",
-      stagger: 0.1,
-    }
-  );
-
-  // =========================
-  // [2] 스크롤 도달 시 텍스트 펼쳐짐/등장
-  // =========================
-  gsap.utils.toArray(".reveal-text").forEach((el, i) => {
-    gsap.to(el, {
+  if (isReducedMotion) {
+    gsap.set([".hero-title", ".hero-desc", ".btn"], {
+      clearProps: "all",
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: "blur(0px)",
-      duration: 0.9, // [튜닝] 섹션 등장 속도
-      delay: (i % 3) * 0.04,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: el,
-        start: "top 86%", // [튜닝] 값 작을수록 더 늦게 시작
-        toggleActions: "play none none reverse",
-      },
+      filter: "none",
     });
-  });
+  } else {
+    gsap.fromTo(
+      ".hero-title",
+      { y: 56, opacity: 0, filter: "blur(8px)" },
+      {
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.5,
+        ease: "power3.out",
+      }
+    );
 
-  // 카드 등장(기존 reveal 유지)
-  gsap.utils.toArray(".reveal").forEach((el, i) => {
-    gsap.to(el, {
-      opacity: 1,
-      y: 0,
-      duration: 0.85,
-      delay: (i % 4) * 0.05,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: el,
-        start: "top 88%",
-        toggleActions: "play none none reverse",
-      },
-    });
-  });
+    gsap.fromTo(
+      [".hero-desc", ".btn"],
+      { y: 22, opacity: 0, filter: "blur(6px)" },
+      {
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.1,
+        delay: 0.3,
+        ease: "power2.out",
+        stagger: 0.1,
+      }
+    );
+  }
 
   // =========================
-  // [3] 메뉴 클릭 부드러운 이동
-  // "상단에서 멀수록 이동속도 빠르게" 구현:
-  // - 거리(distance)가 멀수록 duration 증가폭을 제한(로그 스케일)
-  // - 결과적으로 긴 거리를 체감상 빠르게 이동
+  // [2] 스크롤 도달 시 목적별 애니메이션
+  // =========================
+  if (isReducedMotion) {
+    gsap.set(revealSelectors.join(", "), {
+      clearProps: "all",
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: "none",
+    });
+  } else {
+    gsap.utils.toArray(".reveal-section").forEach((el, i) => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.95,
+        delay: (i % 2) * 0.04,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 88%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    gsap.utils.toArray(".reveal-card").forEach((el, i) => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        delay: (i % 4) * 0.06,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    gsap.utils.toArray(".reveal-text").forEach((el, i) => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.55,
+        delay: (i % 3) * 0.03,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 92%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  }
+
+  // =========================
+  // [3] 메뉴 클릭 스크롤 이동
+  // - reduced-motion일 때는 즉시 이동
   // =========================
   const navLinks = document.querySelectorAll("a[data-scroll]");
   const header = document.querySelector(".site-header");
@@ -82,13 +120,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function smoothScrollTo(targetY) {
     const startY = window.scrollY;
     const distance = Math.abs(targetY - startY);
-
-    // [핵심 튜닝 포인트]
-    // distance가 커져도 duration이 과도하게 늘어나지 않도록 제한
-    // => 멀수록 "상대적으로 빠른" 이동 느낌
     const duration = Math.min(900, Math.max(320, 220 + Math.log2(distance + 1) * 110));
 
     let startTime = null;
+
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
@@ -99,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (progress < 1) requestAnimationFrame(step);
     }
+
     requestAnimationFrame(step);
   }
 
@@ -112,6 +148,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const headerH = header ? header.offsetHeight : 0;
       const targetY = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
+
+      if (isReducedMotion) {
+        window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+        return;
+      }
+
       smoothScrollTo(targetY);
     });
   });
@@ -128,14 +170,14 @@ document.addEventListener("DOMContentLoaded", () => {
       color: { value: ["#dcdce2", "#a9a9b3"] },
       links: {
         enable: true,
-        distance: 135, // [튜닝] 선 길이
+        distance: 135,
         color: "#8f8f99",
-        opacity: 0.22, // [튜닝] 선 진하기
+        opacity: 0.22,
         width: 1,
       },
       move: {
         enable: true,
-        speed: 0.35, // [튜닝] 파티클 이동 속도
+        speed: 0.35,
         direction: "none",
         outModes: { default: "out" },
       },
@@ -148,8 +190,8 @@ document.addEventListener("DOMContentLoaded", () => {
         resize: { enable: true },
       },
       modes: {
-        repulse: { distance: 110, duration: 0.35, factor: 90 }, // [튜닝] 회피 강도
-        grab: { distance: 145, links: { opacity: 0.4 } }, // [튜닝] 커서 연결 강도
+        repulse: { distance: 110, duration: 0.35, factor: 90 },
+        grab: { distance: 145, links: { opacity: 0.4 } },
       },
     },
     detectRetina: true,
