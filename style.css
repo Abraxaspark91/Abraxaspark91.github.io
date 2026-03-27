@@ -383,7 +383,17 @@ main {
 }
 
 .card--project {
-  --card-min-height: 260px;
+  --card-min-height: 0;
+  --project-title-block: 3.2rem;
+  --project-meta-block: 3rem;
+  --project-results-lines: 2;
+  --project-facts-gap: 0.72rem;
+  --project-fact-label-gap: 0.3rem;
+  --project-fact-value-min: 2.4rem;
+  display: grid;
+  grid-template-rows: minmax(var(--project-title-block), auto) minmax(0, 1fr) minmax(var(--project-meta-block), auto);
+  align-content: start;
+  gap: 0.85rem;
 }
 
 .project-grid .card {
@@ -497,13 +507,14 @@ main {
 
 .project-facts {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--project-facts-gap, 0.75rem);
   margin: 0;
 }
 
 .fact-row {
   display: grid;
-  gap: 0.35rem;
+  grid-template-rows: auto 1fr;
+  gap: var(--project-fact-label-gap, 0.35rem);
 }
 
 .fact-row dt {
@@ -515,6 +526,28 @@ main {
 
 .fact-row dd {
   margin: 0;
+  min-height: var(--project-fact-value-min, 0);
+}
+
+.card--project .card-stack {
+  min-height: 0;
+  gap: 0.72rem;
+}
+
+.card--project .project-head {
+  min-height: 1.85rem;
+}
+
+.card--project .card-meta {
+  min-height: var(--project-meta-block);
+  align-content: flex-start;
+}
+
+.card--project .fact-row--results dd {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--project-results-lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .meta-badge {
@@ -765,6 +798,12 @@ section[id] {
     --content-gutter: 5%;
   }
 
+  .card--project {
+    --project-title-block: 3.4rem;
+    --project-meta-block: 3.05rem;
+    --project-fact-value-min: 2.55rem;
+  }
+
 }
 
 @media (max-width: 980px) {
@@ -838,6 +877,15 @@ section[id] {
     --tracking-section: -0.012em;
   }
 
+  .card--project {
+    --project-title-block: 3.6rem;
+    --project-meta-block: 3.15rem;
+    --project-results-lines: 3;
+    --project-facts-gap: 0.76rem;
+    --project-fact-label-gap: 0.34rem;
+    --project-fact-value-min: 2.75rem;
+  }
+
 }
 
 @media (min-width: 1024px) {
@@ -863,6 +911,13 @@ section[id] {
 
   .container {
     --content-gutter: 4%;
+  }
+
+  .card--project {
+    --project-title-block: 3.75rem;
+    --project-meta-block: 3.25rem;
+    --project-facts-gap: 0.8rem;
+    --project-fact-value-min: 2.9rem;
   }
 
 
