@@ -674,16 +674,15 @@ main > section:not(.hero)::before {
   --visible-count: 3;
   --carousel-gap: var(--grid-gap);
   --card-basis: calc((100% - (var(--carousel-gap) * (var(--visible-count) - 1))) / var(--visible-count));
-}
-
-.project-carousel__controls {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.55rem;
-  margin-bottom: 0.95rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 999px;
@@ -694,8 +693,11 @@ main > section:not(.hero)::before {
   transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
+#project-prev { left: 0.5rem; }
+#project-next { right: 0.5rem; }
+
 .carousel-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: translateY(calc(-50% - 2px));
   border-color: var(--border-strong);
 }
 
@@ -705,7 +707,8 @@ main > section:not(.hero)::before {
 }
 
 .project-carousel__viewport {
-  overflow: hidden;
+  overflow: visible;
+  padding: 0 3.5rem;
 }
 
 .project-grid {
@@ -722,9 +725,8 @@ main > section:not(.hero)::before {
 }
 
 .project-grid .card.is-dimmed {
-  opacity: 0.32;
-  filter: saturate(0.78);
-  transform: scale(0.97);
+  opacity: 0.5;
+  filter: blur(4px) saturate(0.6);
 }
 
 .grid-featured {
@@ -818,6 +820,10 @@ main > section:not(.hero)::before {
 @media (max-width: 760px) {
   .project-carousel {
     --visible-count: 1;
+  }
+
+  .project-carousel__viewport {
+    padding: 0 2.5rem;
   }
 }
 
