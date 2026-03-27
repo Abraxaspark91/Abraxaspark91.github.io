@@ -124,8 +124,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = document.querySelector(id);
     if (!target) return;
 
-    navLinkMap.set(id, link);
     sectionMap.set(id, target);
+  });
+
+  navLinks.forEach((link) => {
+    const id = link.getAttribute("href");
+    if (!id || !id.startsWith("#")) return;
+    navLinkMap.set(id, link);
   });
 
   function setActiveNav(id) {
@@ -204,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
         smoothScrollTo(targetY);
       }
 
-      history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+      history.replaceState(null, "", `${window.location.pathname}${window.location.search}${id}`);
     });
   });
 
@@ -212,8 +217,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const section = sectionMap.get(window.location.hash);
     const headerH = header ? header.offsetHeight : 0;
     const targetY = section.getBoundingClientRect().top + window.scrollY - headerH - 10;
-    window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
-    history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+    setActiveNav(window.location.hash);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+    });
   }
 
   updateActiveNavByScroll();
