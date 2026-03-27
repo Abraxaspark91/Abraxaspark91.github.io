@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const projects = [
     {
       title: "New ERP Implementation Project",
-      period: "2024-12 ~ 2025-08",
+      period: "Dec 2024 ~ Aug 2025",
       roles: ["Solution Architect", "Stabilization Support"],
       results: "Architected 10+ programs for profitability system used for BEPS compliance",
       industryClient: "Electronics · L Electronics",
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "GenAI Taskforce",
-      period: "2024-02 ~ 2024-11",
+      period: "Feb 2024 ~ Nov 2024",
       roles: ["SAP Domain Expert", "GenAI R&D", "GenAI Strategist"],
       results: "KNIME expert | Open-source LLM ecosystem report | sLLM Fine-tuning",
       industryClient: "Technology · P Consulting",
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "New Management Accounting Project",
-      period: "2022-08 ~ 2023-10",
+      period: "Aug 2022 ~ Oct 2023",
       roles: [
         "Process and Solution Architect",
         "Stabilization Support",
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "Financial Reporting Enhancement",
-      period: "2021-05 ~ 2022-08",
+      period: "May 2021 ~ Aug 2022",
       roles: [
         "Process and Solution Architect",
         "Global Communication Manager",
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "Next-gen ERP Implementation",
-      period: "2019-12 ~ 2021-05",
+      period: "Dec 2019 ~ May 2021",
       roles: [
         "Solution Architect",
         "Solution Implementation Consultant",
