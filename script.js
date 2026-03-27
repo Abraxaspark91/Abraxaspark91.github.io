@@ -111,12 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // [3] 메뉴 클릭 스크롤 이동
   // - reduced-motion일 때는 즉시 이동
   // =========================
-  const navLinks = document.querySelectorAll("a[data-scroll]");
+  const scrollLinks = document.querySelectorAll("a[data-scroll]");
+  const navLinks = document.querySelectorAll(".nav a[data-scroll]");
   const header = document.querySelector(".site-header");
   const navLinkMap = new Map();
   const sectionMap = new Map();
 
-  navLinks.forEach((link) => {
+  scrollLinks.forEach((link) => {
     const id = link.getAttribute("href");
     if (!id || !id.startsWith("#")) return;
 
@@ -185,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(step);
   }
 
-  navLinks.forEach((link) => {
+  scrollLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
 
@@ -199,12 +200,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (isReducedMotion) {
         window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
-        return;
+      } else {
+        smoothScrollTo(targetY);
       }
 
-      smoothScrollTo(targetY);
+      history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
     });
   });
+
+  if (window.location.hash && sectionMap.has(window.location.hash)) {
+    const section = sectionMap.get(window.location.hash);
+    const headerH = header ? header.offsetHeight : 0;
+    const targetY = section.getBoundingClientRect().top + window.scrollY - headerH - 10;
+    window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+    history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+  }
 
   updateActiveNavByScroll();
   window.addEventListener("scroll", updateActiveNavByScroll, { passive: true });
