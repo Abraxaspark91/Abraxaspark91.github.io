@@ -134,8 +134,8 @@ main {
   width: 100%;
   z-index: 99999; /* ✅ 항상 맨 앞 */
   border-bottom: 1px solid rgba(79, 79, 92, 0.42);
-  background: rgba(15, 15, 16, 0.76);
-  backdrop-filter: blur(6px);
+  background: rgba(15, 15, 16, 0.3);
+  backdrop-filter: blur(8px);
 }
 
 /* 헤더 레이아웃: 메뉴 + 소셜 */
@@ -284,6 +284,23 @@ main {
   margin-bottom: 2rem;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+   background: 
+       radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%),
+       url('./hero-bg.png'); /* 저장하신 이미지 경로로 수정해주세요 */
+       
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+   
+     /* 시안의 네온 느낌을 살리기 위해 블렌드 모드 추가 (선택 사항) */
+     mix-blend-mode: screen; 
+     opacity: 0.9;
+   }
 .btn {
   display: inline-block;
   border: 1px solid #5a5a65;
