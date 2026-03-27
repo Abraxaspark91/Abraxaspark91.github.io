@@ -22,6 +22,7 @@
   --grid-columns: 12;
   --grid-gap: clamp(0.85rem, 2vw, 1.25rem);
   --grid-min: 16rem;
+  --header-h: 64px;
   --bp-sm: 640px;
   --bp-md: 768px;
   --bp-lg: 1024px;
@@ -131,11 +132,11 @@ main {
 
 /* 헤더 레이아웃: 메뉴 + 소셜 */
 .nav-wrap {
-  min-height: 64px;
+  min-height: var(--header-h);
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: center;
+  align-items: baseline;
   gap: 1rem;
   padding: 0;
 }
@@ -143,9 +144,11 @@ main {
 /* 오른쪽 소셜 영역 */
 .social-links {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   gap: 0.45rem;
   justify-self: end;
+  height: var(--header-h);
+  line-height: var(--header-h);
   z-index: 2;
 }
 
@@ -186,23 +189,26 @@ main {
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.04em;
+  height: var(--header-h);
+  line-height: var(--header-h);
   justify-self: start;
   z-index: 2;
 }
 
 .nav-center {
-  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 .nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 1rem;
   flex-wrap: nowrap;
   justify-content: center;
   white-space: nowrap;
+  height: var(--header-h);
+  line-height: var(--header-h);
   z-index: 1;
 }
 
@@ -645,31 +651,37 @@ section[id] {
 @media (max-width: 980px) {
   .nav-wrap {
     grid-template-columns: 1fr;
-    gap: 0.6rem;
-    padding: 0.6rem 0;
+    gap: 0.4rem;
+    padding: 0.6rem 0 0.8rem;
     justify-items: center;
   }
 
   .logo {
     justify-self: center;
+    height: auto;
+    line-height: 1.2;
+    margin-bottom: 0.1rem;
   }
 
   .nav-center {
-    grid-column: auto;
     width: 100%;
   }
 
   .nav {
-    position: static;
-    left: auto;
-    transform: none;
     flex-wrap: wrap;
     justify-content: center;
     white-space: normal;
+    height: auto;
+    line-height: 1.4;
+    row-gap: 0.35rem;
   }
 
   .social-links {
     justify-self: center;
+    height: auto;
+    line-height: 1;
+    align-items: center;
+    margin-top: 0.1rem;
   }
 }
 
