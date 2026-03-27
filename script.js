@@ -154,6 +154,64 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectGrid = document.querySelector("#project-cards");
   renderProjects(projects, projectGrid);
 
+  const prevProjectButton = document.querySelector("#project-prev");
+  const nextProjectButton = document.querySelector("#project-next");
+  const projectCarousel = document.querySelector(".project-carousel");
+
+  function getVisibleCount() {
+    if (window.matchMedia("(max-width: 760px)").matches) return 1;
+    if (window.matchMedia("(max-width: 1023px)").matches) return 2;
+    return 3;
+  }
+
+  function setupProjectCarousel() {
+    if (!projectGrid || !projectCarousel || !prevProjectButton || !nextProjectButton) return;
+
+    const cards = Array.from(projectGrid.querySelectorAll(".card"));
+    if (!cards.length) return;
+
+    let startIndex = 0;
+    let visibleCount = getVisibleCount();
+
+    const applyState = () => {
+      const maxStart = Math.max(0, cards.length - visibleCount);
+      startIndex = Math.min(startIndex, maxStart);
+
+      cards.forEach((card, index) => {
+        const isVisible = index >= startIndex && index < startIndex + visibleCount;
+        card.classList.toggle("is-dimmed", !isVisible);
+      });
+
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      const gridGap = parseFloat(getComputedStyle(projectGrid).columnGap || "0");
+      const offset = startIndex * (cardWidth + gridGap);
+      projectGrid.style.transform = `translateX(${-offset}px)`;
+
+      prevProjectButton.disabled = startIndex === 0;
+      nextProjectButton.disabled = startIndex >= maxStart;
+    };
+
+    prevProjectButton.addEventListener("click", () => {
+      startIndex = Math.max(0, startIndex - 1);
+      applyState();
+    });
+
+    nextProjectButton.addEventListener("click", () => {
+      const maxStart = Math.max(0, cards.length - visibleCount);
+      startIndex = Math.min(maxStart, startIndex + 1);
+      applyState();
+    });
+
+    window.addEventListener("resize", () => {
+      visibleCount = getVisibleCount();
+      applyState();
+    });
+
+    applyState();
+  }
+
+  setupProjectCarousel();
+
   // Hero 가시성에 따라 고정 배경 선명도/섹션 베일 강도를 전환합니다.
   const heroSection = document.querySelector(".hero");
   if (heroSection) {

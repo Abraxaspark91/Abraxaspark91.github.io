@@ -145,7 +145,19 @@
             <h2 class="section-title">PROJECTS</h2>
             <!-- <p class="section-note section-note--placeholder" aria-hidden="true">&nbsp;</p> -->
           </div>
-          <div id="project-cards" class="grid grid-3 project-grid" aria-live="polite"></div>
+          <div class="project-carousel reveal-section" aria-label="Projects carousel">
+            <div class="project-carousel__controls">
+              <button type="button" class="carousel-btn" id="project-prev" aria-label="Previous projects">
+                ←
+              </button>
+              <button type="button" class="carousel-btn" id="project-next" aria-label="Next projects">
+                →
+              </button>
+            </div>
+            <div class="project-carousel__viewport">
+              <div id="project-cards" class="project-grid" aria-live="polite"></div>
+            </div>
+          </div>
         </div>
       </section>
       
