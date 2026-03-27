@@ -258,6 +258,7 @@ main {
 /* 헤더 고정 때문에 첫 섹션 여백 */
 .hero {
   position: relative;
+  z-index: 1;
   overflow: hidden;
   padding-top: 9rem;
   min-height: 100vh;
@@ -289,7 +290,7 @@ main {
 .hero::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   z-index: -1;
    background: 
        radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%),
@@ -300,8 +301,8 @@ main {
      background-repeat: no-repeat;
    
      /* 시안의 네온 느낌을 살리기 위해 블렌드 모드 추가 (선택 사항) */
-     mix-blend-mode: screen; 
-     opacity: 0.9;
+     /*mix-blend-mode: screen; */ 
+     /*opacity: 0.9; */
    }
 .btn {
   display: inline-block;
