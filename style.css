@@ -27,6 +27,12 @@
   --bp-lg: 1024px;
   --bp-xl: 1280px;
 
+  /* vertical rhythm tokens (80 / 64 / 48 scale) */
+  --space-section-80: 5rem;
+  --space-section-64: 4rem;
+  --space-section-48: 3rem;
+  --section-pad-y: var(--space-section-80);
+
   /* typography tokens */
   --title-scale-section: 1.6; /* section-title = card-title * 1.6 */
   --font-size-title-min: 1rem;
@@ -112,7 +118,7 @@ main {
 }
 
 .section-pad {
-  padding: 6rem 0;
+  padding-block: var(--section-pad-y);
 }
 
 /* =========================
@@ -324,7 +330,7 @@ main {
    ========================= */
 .card {
   --card-padding: 1rem;
-  --card-min-height: 0;
+  --card-min-height: 9.5rem;
   --card-meta-separator: none;
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
@@ -339,11 +345,11 @@ main {
 
 /* Variant rules: 최소 높이만 제어 */
 .card--about {
-  --card-min-height: 220px;
+  --card-min-height: 12.5rem;
 }
 
 .card--project {
-  --card-min-height: 260px;
+  --card-min-height: 15.5rem;
 }
 
 .project-grid .card {
@@ -351,7 +357,11 @@ main {
 }
 
 .card--edu {
-  --card-min-height: 220px;
+  --card-min-height: 13.5rem;
+}
+
+.card--contact {
+  --card-min-height: 11rem;
 }
 
 .card__title {
@@ -498,10 +508,6 @@ main {
 /* =========================
    [C] 그리드/간격 정돈
    ========================= */
-.section-pad {
-  padding: 5rem 0; /* 섹션 간 간격 통일 */
-}
-
 .grid {
   --grid-min: 16rem;
   display: grid;
@@ -583,9 +589,22 @@ main {
 }
 
 /* 비대칭 레이아웃 */
-.grid-featured .large {
+.grid-featured .large,
+.asym-grid .large {
   grid-row: auto;
   min-height: auto;
+  height: auto;
+}
+
+#contact {
+  --section-pad-y: var(--space-section-64);
+  min-height: clamp(20rem, 52vh, 28rem);
+}
+
+#contact .container {
+  display: grid;
+  gap: 1rem;
+  align-content: center;
 }
 
 /* 섹션 이동 시 헤더 높이만큼 가려짐 방지*/
@@ -631,6 +650,7 @@ section[id] {
     --line-height-section: 1.25;
     --tracking-title: -0.007em;
     --tracking-section: -0.011em;
+    --section-pad-y: var(--space-section-64);
   }
 
   .container {
@@ -687,6 +707,7 @@ section[id] {
     --line-height-section: 1.24;
     --tracking-title: -0.008em;
     --tracking-section: -0.012em;
+    --section-pad-y: var(--space-section-80);
   }
 
 }
@@ -716,10 +737,11 @@ section[id] {
     --content-gutter: 4%;
   }
 
-
-  .grid-featured .large {
+  .grid-featured .large,
+  .asym-grid .large {
     grid-row: span 2;
-    min-height: 320px;
+    min-height: fit-content;
+    height: auto;
   }
 }
 
@@ -744,6 +766,12 @@ section[id] {
     --tracking-section: -0.015em;
   }
 
+}
+
+@media (max-width: 639px) {
+  :root {
+    --section-pad-y: var(--space-section-48);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
