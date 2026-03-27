@@ -101,6 +101,21 @@ body {
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed; /* ✅ 핵심: 스크롤을 내려도 화면에 딱 붙어있게 만듭니다 */
+  inset: 0;        /* 화면의 상하좌우를 꽉 채웁니다 */
+  z-index: 0;      /* 본문 내용 뒤로 가도록 층을 낮춥니다 */
+  
+  background: url('./hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* 💡 글씨가 배경에 묻혀서 잘 안 보인다면 아래 주석을 풀고 투명도를 낮춰보세요 */
+  /* opacity: 0.6; */
+}
+
 /* 배경 파티클 */
 #tsparticles {
   position: fixed;
@@ -258,8 +273,6 @@ main {
 /* 헤더 고정 때문에 첫 섹션 여백 */
 .hero {
   position: relative;
-  z-index: 1;
-  overflow: hidden;
   padding-top: 9rem;
   min-height: 100vh;
   display: grid;
@@ -287,23 +300,6 @@ main {
   margin-bottom: 2rem;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-   background: 
-       radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%),
-       url('./hero-bg.png'); /* 저장하신 이미지 경로로 수정해주세요 */
-       
-     background-size: cover;
-     background-position: center;
-     background-repeat: no-repeat;
-   
-     /* 시안의 네온 느낌을 살리기 위해 블렌드 모드 추가 (선택 사항) */
-     /*mix-blend-mode: screen; */ 
-     /*opacity: 0.9; */
-   }
 .btn {
   display: inline-block;
   border: 1px solid #5a5a65;
